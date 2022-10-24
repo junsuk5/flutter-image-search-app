@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:image_search_app5/ui/detail/detail_screen.dart';
 import 'package:image_search_app5/ui/search/search_view_model.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -67,11 +68,21 @@ class _SearchScreenState extends State<SearchScreen> {
                       crossAxisSpacing: 20,
                       crossAxisCount: 2,
                       children: viewModel.items.map((item) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
-                          child: Image.network(
-                            item.webformatURL ?? '',
-                            fit: BoxFit.cover,
+                        return GestureDetector(
+                          onTap: () {
+                            log('아이템 클릭!!!');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(photo: item,),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: Image.network(
+                              item.webformatURL ?? '',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         );
                       }).toList(),
