@@ -13,6 +13,14 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final viewModel = SearchViewModel();
 
+  final searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: searchController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18.0),
@@ -37,7 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       viewModel.isLoading = true;
                     });
 
-                    await viewModel.addPhoto();
+                    await viewModel.getPhotos(searchController.text);
 
                     setState(() {
                       viewModel.isLoading = false;
