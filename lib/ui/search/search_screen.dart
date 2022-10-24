@@ -73,15 +73,20 @@ class _SearchScreenState extends State<SearchScreen> {
                             log('아이템 클릭!!!');
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => DetailScreen(photo: item,),
+                                builder: (context) => DetailScreen(
+                                  photo: item,
+                                ),
                               ),
                             );
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
-                            child: Image.network(
-                              item.webformatURL ?? '',
-                              fit: BoxFit.cover,
+                            child: Hero(
+                              tag: '${item.id ?? 0}',
+                              child: Image.network(
+                                item.webformatURL ?? '',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         );
